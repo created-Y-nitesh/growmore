@@ -8,81 +8,121 @@ export const COMPANY_INFO = {
 
 export const INVESTMENT_PLANS = [
   {
-    id: 'starter',
-    name: 'Starter Plan',
-    tagline: 'Accessible entry point designed for initial portfolio growth',
+    id: 1,
+    planCode: 'BASIC',
+    name: 'Basic Plan',
+    tagline: 'Investment ₹1,000 - ₹20,000',
+    description: 'Monthly 10% Return',
     minAmount: 1000,
-    termLabel: '30 Days Fixed Term',
-    durationDays: 30,
-    rate: 10,
-    sampleReturn: 100,
-    sampleTotal: 1100,
-    badge: 'Beginner Tier',
-    featured: false,
-    summary: 'A 30-day locked growth period with an accessible minimum capital entry of ₹1,000.',
-    perks: [
-      'Low minimum entry at ₹1,000',
-      'Instant real-time portfolio analytics',
-      'Automated wallet settlement upon maturity',
-      '24/7 priority customer support'
-    ],
-    terms: [
-      'Holding term: 30 calendar days lock-in cycle',
-      'Fixed yield: 10% net monthly return upon cycle completion',
-      'Instant reinvestment or payout to verified bank account',
-      'Zero maintenance or platform management fees'
-    ]
-  },
-  {
-    id: 'silver',
-    name: 'Silver Plan',
-    tagline: 'Balanced allocation model for intermediate portfolio diversification',
-    minAmount: 5000,
-    termLabel: '90 Days Fixed Term',
-    durationDays: 90,
-    rate: 10,
-    sampleReturn: 1500,
-    sampleTotal: 6500,
-    badge: 'Popular Tier',
-    featured: true,
-    summary: 'A 90-day structured allocation model designed for intermediate capital growth starting at ₹5,000.',
-    perks: [
-      'Optimal capital allocation at ₹5,000 minimum',
-      'Advanced yield analytics & distribution charts',
-      'Priority bank payout settlement queue',
-      'Direct WhatsApp & phone relationship desk'
-    ],
-    terms: [
-      'Holding term: 90 calendar days lock-in cycle',
-      'Calculated simple return: 10% per 30-day period (30% total)',
-      'Direct credit of principal & profits to Withdraw Wallet',
-      'Protected under institutional capital allocation rules'
-    ]
-  },
-  {
-    id: 'gold',
-    name: 'Gold Plan',
-    tagline: 'High-yield tier for strategic long-range growth horizons',
-    minAmount: 10000,
-    termLabel: '365 Days Annual Term',
+    minimumAmount: 1000,
+    maxAmount: 20000,
     durationDays: 365,
+    returnRatePercentage: 10,
     rate: 10,
-    sampleReturn: 12167,
-    sampleTotal: 22167,
-    badge: 'High Value Tier',
+    badge: 'Starter Tier',
     featured: false,
-    summary: 'A 365-day annual strategic holding period starting at ₹10,000 with maximum compounding benefits.',
+    summary: 'A 365-day locked capital growth period yielding 10% net monthly return withdrawable at ₹500+.',
     perks: [
-      'High-tier growth starting from ₹10,000',
-      'Full institutional visual analytics & reports',
-      'Instant same-day IMPS/NEFT bank withdrawals',
-      'Dedicated personal account relationship manager'
+      'Accessible entry from ₹1,000 to ₹20,000',
+      '10% Monthly Simple Return',
+      'Minimum Withdrawal: ₹500 (Interest Only)',
+      'Principal Locked for 365 Days'
     ],
     terms: [
-      'Holding term: 365 calendar days annual cycle',
-      'Annual simple yield: proportional 120% per annum',
-      'Full liquidity freedom upon maturity date',
-      'VIP access to newly released growth tiers'
+      'Minimum Investment: ₹1,000',
+      'Maximum Investment: ₹20,000',
+      '10% Monthly Return',
+      'Minimum Withdrawal: ₹500 (Interest Only)',
+      'Principal Locked for 365 Days'
+    ]
+  },
+  {
+    id: 3,
+    planCode: 'DAILY',
+    name: 'Daily Earning Plan',
+    tagline: '₹99 Daily Bonus + 18% Monthly Return',
+    description: '18% Monthly + ₹99 Daily',
+    minAmount: 5000,
+    minimumAmount: 5000,
+    maxAmount: 150000,
+    durationDays: 365,
+    returnRatePercentage: 18,
+    rate: 18,
+    badge: '₹99/Day Bonus Tier',
+    featured: true,
+    summary: 'An 18% monthly yield tier with an extra ₹99 daily bonus added to your dashboard every midnight.',
+    perks: [
+      'Allocation ₹5,000 - ₹1,50,000',
+      '18% Monthly Return',
+      '₹99 Daily Bonus Accrued Every Midnight',
+      'Daily Bonus Withdrawable after ₹1,000',
+      'Principal Locked for 365 Days'
+    ],
+    terms: [
+      'Investment ₹5,000 - ₹1,50,000',
+      '18% Monthly Return',
+      '₹99 Daily Bonus',
+      'Daily Bonus Withdraw after ₹1,000',
+      'Principal Locked for 365 Days'
+    ]
+  },
+  {
+    id: 4,
+    planCode: 'SUPER',
+    name: 'Daily Earning Super',
+    tagline: '₹300 Daily Bonus + 20% Monthly Return',
+    description: '20% Monthly + ₹300 Daily',
+    minAmount: 10000,
+    minimumAmount: 10000,
+    durationDays: 365,
+    returnRatePercentage: 20,
+    rate: 20,
+    badge: '₹300/Day Super Tier',
+    featured: true,
+    summary: 'Premium growth tier with 20% monthly yield and an extra ₹300 daily bonus added every midnight.',
+    perks: [
+      'Minimum Investment: ₹10,000 (No Upper Limit)',
+      '20% Monthly Return',
+      '₹300 Daily Bonus Accrued Every Midnight',
+      'Daily Bonus Withdrawable after ₹3,000',
+      'Principal Locked for 365 Days'
+    ],
+    terms: [
+      'Minimum Investment: ₹10,000',
+      'No Maximum Limit',
+      '20% Monthly Return',
+      '₹300 Daily Bonus',
+      'Daily Bonus Withdraw after ₹3,000',
+      'Principal Locked for 365 Days'
+    ]
+  },
+  {
+    id: 2,
+    planCode: 'VIP',
+    name: 'VIP Member',
+    tagline: 'Investment ₹20,000 - ₹1,00,000',
+    description: 'Monthly 12% Return',
+    minAmount: 20000,
+    minimumAmount: 20000,
+    maxAmount: 100000,
+    durationDays: 365,
+    returnRatePercentage: 12,
+    rate: 12,
+    badge: 'VIP Tier',
+    featured: false,
+    summary: 'Institutional tier for capital allocations up to ₹1,00,000 with monthly return of 12%.',
+    perks: [
+      'Maximum Investment: ₹1,00,000',
+      'Monthly Return: 12%',
+      'Minimum Withdrawal: ₹500 (Interest Only)',
+      'Principal Locked for 365 Days'
+    ],
+    terms: [
+      'Maximum Investment: ₹1,00,000',
+      'Monthly Return shown as 12% - 15%',
+      'Actual Return: 12%',
+      'Minimum Withdrawal: ₹500 (Interest Only)',
+      'Principal Locked for 365 Days'
     ]
   }
 ];

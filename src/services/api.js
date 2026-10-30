@@ -3,7 +3,23 @@
  * Centralized HTTP service for connecting to the Express + PostgreSQL backend.
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+// Resolve secure API base URL across local dev and production domains
+const getApiBaseUrl = () => {
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (typeof window !== 'undefined') {
+    const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isLocal) {
+      // On production HTTPS domains, prevent browser mixed-content blocks
+      if (envUrl && envUrl.startsWith('https://')) {
+        return envUrl.replace(/\/+$/, '');
+      }
+      return `${window.location.origin}/api`;
+    }
+  }
+  return envUrl || 'http://localhost:5000/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 // Token & Session Storage Keys
 const TOKEN_KEY = 'growmore_token';
