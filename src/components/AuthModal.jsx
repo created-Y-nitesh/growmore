@@ -178,11 +178,24 @@ export default function AuthModal({ isOpen = false, initialMode = 'login', onClo
     setIsLoading(true);
 
     try {
-      const response = await api.login({
-        email: cleanEmail,
-        password,
-        rememberMe
-      });
+      let response;
+      if (supabaseAuth.isConfigured()) {
+        try {
+          response = await supabaseAuth.signIn({ email: cleanEmail, password });
+        } catch (sbErr) {
+          try {
+            response = await api.login({ email: cleanEmail, password, rememberMe });
+          } catch {
+            throw sbErr;
+          }
+        }
+      } else {
+        response = await api.login({
+          email: cleanEmail,
+          password,
+          rememberMe
+        });
+      }
 
       setSuccessMsg('Authentication successful! Welcome to GrowMore.');
       setTimeout(() => {
@@ -248,6 +261,34 @@ export default function AuthModal({ isOpen = false, initialMode = 'login', onClo
     setIsLoading(true);
 
     try {
+      if (supabaseAuth.isConfigured()) {
+        try {
+          const sbRes = await supabaseAuth.signUp({
+            email: cleanEmail,
+            password,
+            fullName: fullName.trim(),
+            dob
+          });
+
+          if (sbRes.isEmailConfirmationRequired) {
+            setInfoMsg('Account created! Please check your email inbox to verify your account.');
+          } else {
+            setSuccessMsg('Account created successfully! Welcome to GrowMore.');
+          }
+
+          setTimeout(() => {
+            onClose();
+            if (onLoginSuccess && sbRes.user) {
+              onLoginSuccess(sbRes.user);
+            }
+          }, 1200);
+          return;
+        } catch (sbErr) {
+          console.warn('[Supabase Auth Signup note]:', sbErr.message);
+          // Fall back to backend api.register
+        }
+      }
+
       const response = await api.register({
         fullName: fullName.trim(),
         dob,
