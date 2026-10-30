@@ -1,0 +1,20 @@
+$kind: http-request
+name: Get All Plans
+order: 1000
+url: '{{base_url}}/api/plans'
+method: GET
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Plans array returned", () => {
+        const json = pm.response.json();
+        pm.expect(json.success).to.be.true;
+        pm.expect(json.plans).to.be.an('array');
+      });
+      const json = pm.response.json();
+      if (json.plans && json.plans.length > 0) {
+        pm.environment.set("plan_id", json.plans[0].id);
+        console.log("First plan ID saved: " + json.plans[0].id);
+      }

@@ -1,0 +1,36 @@
+$kind: http-request
+name: Create Withdrawal
+order: 1000
+url: '{{base_url}}/api/withdrawals'
+method: POST
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{auth_token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "amount": 500,
+      "payoutMethod": "IMPS Bank Transfer",
+      "payoutDetails": {
+        "accountNumber": "1234567890",
+        "ifsc": "HDFC0001234",
+        "bankName": "HDFC Bank"
+      }
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201 or 400", () => {
+        pm.expect(pm.response.code).to.be.oneOf([201, 400]);
+      });
+      const json = pm.response.json();
+      if (json.withdrawal && json.withdrawal.id) {
+        pm.environment.set("withdrawal_id", json.withdrawal.id);
+      }

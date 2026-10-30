@@ -1,0 +1,11 @@
+$kind: collection
+name: GrowMore API
+description: |-
+  Complete API collection for GrowMore fintech investment platform.
+  Covers Auth, Plans, Investments, Wallet, Deposits, Withdrawals, Payments, Admin, Support, Profile, and Health modules.
+  
+  ## Setup
+  1. Select the "GrowMore Dev" or "GrowMore Production" environment
+  2. Register a user via POST /api/auth/register
+  3. The login request auto-saves the token to {{auth_token}}
+  4. All protected routes use Bearer {{auth_token}} automatically

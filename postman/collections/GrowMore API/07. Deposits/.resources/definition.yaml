@@ -1,0 +1,3 @@
+$kind: collection
+name: '07. Deposits'
+description: 'Create and track deposit requests. Minimum deposit is ₹100.'

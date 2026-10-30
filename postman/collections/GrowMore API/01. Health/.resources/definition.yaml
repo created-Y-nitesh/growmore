@@ -1,0 +1,3 @@
+$kind: collection
+name: '01. System Health'
+description: Liveness and readiness probes for the GrowMore backend server.

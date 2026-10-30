@@ -1,0 +1,143 @@
+﻿00:00 +0: loading D:/Downloads/growmore/growmore_app/test/widget_test.dart
+00:00 +0: GrowMore comprehensive functionality test
+ÔòÉÔòÉÔòí EXCEPTION CAUGHT BY RENDERING LIBRARY Ôò×ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 106 pixels on the right.
+
+The relevant error-causing widget was:
+  Row Row:file:///D:/Downloads/growmore/growmore_app/lib/main.dart:2281:9
+
+The overflowing RenderFlex has an orientation of Axis.horizontal.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and
+black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the
+RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be
+seen. If the content is legitimately bigger than the available space, consider clipping it with a
+ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex,
+like a ListView.
+The specific RenderFlex in question is: RenderFlex#b7a32 relayoutBoundary=up5 OVERFLOWING:
+  creator: Row ÔåÉ RepaintBoundary ÔåÉ IndexedSemantics ÔåÉ _SelectionKeepAlive ÔåÉ
+    NotificationListener<KeepAliveNotification> ÔåÉ KeepAlive ÔåÉ AutomaticKeepAlive ÔåÉ KeyedSubtree ÔåÉ
+    SliverList ÔåÉ SliverPadding ÔåÉ Viewport ÔåÉ IgnorePointer-[GlobalKey#2c5eb] ÔåÉ Ôï»
+  parentData: <none> (can use size)
+  constraints: BoxConstraints(w=448.0, 0.0<=h<=Infinity)
+  size: Size(448.0, 48.0)
+  direction: horizontal
+  mainAxisAlignment: spaceBetween
+  mainAxisSize: max
+  crossAxisAlignment: center
+  textDirection: ltr
+  verticalDirection: down
+  spacing: 0.0
+ÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñ
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+ÔòÉÔòÉÔòí EXCEPTION CAUGHT BY RENDERING LIBRARY Ôò×ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 106 pixels on the right.
+
+The relevant error-causing widget was:
+  Row Row:file:///D:/Downloads/growmore/growmore_app/lib/main.dart:3276:21
+
+The overflowing RenderFlex has an orientation of Axis.horizontal.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and
+black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the
+RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be
+seen. If the content is legitimately bigger than the available space, consider clipping it with a
+ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex,
+like a ListView.
+The specific RenderFlex in question is: RenderFlex#56099 relayoutBoundary=up8 OVERFLOWING:
+  creator: Row ÔåÉ Column ÔåÉ Padding ÔåÉ DecoratedBox ÔåÉ Container ÔåÉ RepaintBoundary ÔåÉ IndexedSemantics ÔåÉ
+    _SelectionKeepAlive ÔåÉ NotificationListener<KeepAliveNotification> ÔåÉ KeepAlive ÔåÉ AutomaticKeepAlive
+    ÔåÉ KeyedSubtree ÔåÉ Ôï»
+  parentData: offset=Offset(0.0, 0.0); flex=null; fit=null (can use size)
+  constraints: BoxConstraints(0.0<=w<=400.0, 0.0<=h<=Infinity)
+  size: Size(400.0, 24.0)
+  direction: horizontal
+  mainAxisAlignment: spaceBetween
+  mainAxisSize: max
+  crossAxisAlignment: center
+  textDirection: ltr
+  verticalDirection: down
+  spacing: 0.0
+ÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñ
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+ÔòÉÔòÉÔòí EXCEPTION CAUGHT BY RENDERING LIBRARY Ôò×ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 51 pixels on the right.
+
+The relevant error-causing widget was:
+  Row Row:file:///D:/Downloads/growmore/growmore_app/lib/main.dart:3326:27
+
+The overflowing RenderFlex has an orientation of Axis.horizontal.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and
+black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the
+RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be
+seen. If the content is legitimately bigger than the available space, consider clipping it with a
+ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex,
+like a ListView.
+The specific RenderFlex in question is: RenderFlex#35870 relayoutBoundary=up8 OVERFLOWING:
+  creator: Row ÔåÉ Column ÔåÉ Padding ÔåÉ DecoratedBox ÔåÉ Container ÔåÉ RepaintBoundary ÔåÉ IndexedSemantics ÔåÉ
+    _SelectionKeepAlive ÔåÉ NotificationListener<KeepAliveNotification> ÔåÉ KeepAlive ÔåÉ AutomaticKeepAlive
+    ÔåÉ KeyedSubtree ÔåÉ Ôï»
+  parentData: offset=Offset(0.0, 0.0); flex=null; fit=null (can use size)
+  constraints: BoxConstraints(0.0<=w<=406.0, 0.0<=h<=Infinity)
+  size: Size(406.0, 24.0)
+  direction: horizontal
+  mainAxisAlignment: start
+  mainAxisSize: max
+  crossAxisAlignment: center
+  textDirection: ltr
+  verticalDirection: down
+  spacing: 0.0
+ÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñ
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+ÔòÉÔòÉÔòí EXCEPTION CAUGHT BY RENDERING LIBRARY Ôò×ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+The following assertion was thrown during layout:
+A RenderFlex overflowed by 113 pixels on the right.
+
+The relevant error-causing widget was:
+  Row Row:file:///D:/Downloads/growmore/growmore_app/lib/main.dart:2509:9
+
+The overflowing RenderFlex has an orientation of Axis.horizontal.
+The edge of the RenderFlex that is overflowing has been marked in the rendering with a yellow and
+black striped pattern. This is usually caused by the contents being too big for the RenderFlex.
+Consider applying a flex factor (e.g. using an Expanded widget) to force the children of the
+RenderFlex to fit within the available space instead of being sized to their natural size.
+This is considered an error condition because it indicates that there is content that cannot be
+seen. If the content is legitimately bigger than the available space, consider clipping it with a
+ClipRect widget before putting it in the flex, or using a scrollable container rather than a Flex,
+like a ListView.
+The specific RenderFlex in question is: RenderFlex#f3e8f relayoutBoundary=up5 OVERFLOWING:
+  creator: Row ÔåÉ RepaintBoundary ÔåÉ IndexedSemantics ÔåÉ _SelectionKeepAlive ÔåÉ
+    NotificationListener<KeepAliveNotification> ÔåÉ KeepAlive ÔåÉ AutomaticKeepAlive ÔåÉ KeyedSubtree ÔåÉ
+    SliverList ÔåÉ SliverPadding ÔåÉ Viewport ÔåÉ IgnorePointer-[GlobalKey#3bab6] ÔåÉ Ôï»
+  parentData: <none> (can use size)
+  constraints: BoxConstraints(w=448.0, 0.0<=h<=Infinity)
+  size: Size(448.0, 48.0)
+  direction: horizontal
+  mainAxisAlignment: spaceBetween
+  mainAxisSize: max
+  crossAxisAlignment: center
+  textDirection: ltr
+  verticalDirection: down
+  spacing: 0.0
+ÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñÔùóÔùñ
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+ÔòÉÔòÉÔòí EXCEPTION CAUGHT BY FLUTTER TEST FRAMEWORK Ôò×ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+The following message was thrown:
+Multiple exceptions (4) were detected during the running of the current test, and at least one was
+unexpected.
+ÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉÔòÉ
+00:04 +0 -1: GrowMore comprehensive functionality test [E]
+  Test failed. See exception logs above.
+  The test description was: GrowMore comprehensive functionality test
+  
+00:04 +0 -1: Some tests failed.
+
+Failing tests:
+  D:/Downloads/growmore/growmore_app/test/widget_test.dart: GrowMore comprehensive functionality test

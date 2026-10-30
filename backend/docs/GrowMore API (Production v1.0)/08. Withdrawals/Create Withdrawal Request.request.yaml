@@ -1,0 +1,19 @@
+$kind: http-request
+url: "{{baseUrl}}/api/withdrawals"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "amount": 1000,
+      "payoutMethod": "IMPS Bank Transfer",
+      "payoutDetails": {
+        "accountNumber": "91234567890",
+        "ifsc": "HDFC0001234"
+      },
+      "idempotencyKey": "wdr-key-881"
+    }
+order: 1000

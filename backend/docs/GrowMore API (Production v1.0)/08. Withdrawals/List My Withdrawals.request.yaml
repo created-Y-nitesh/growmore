@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/api/withdrawals/my"
+method: GET
+headers:
+  Authorization: Bearer {{authToken}}
+order: 2000

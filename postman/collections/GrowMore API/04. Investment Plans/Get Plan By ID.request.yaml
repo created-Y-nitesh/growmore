@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get Plan By ID
+order: 2000
+url: '{{base_url}}/api/plans/{{plan_id}}'
+method: GET
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Plan details returned", () => {
+        const json = pm.response.json();
+        pm.expect(json.success).to.be.true;
+        pm.expect(json.plan).to.be.an('object');
+      });

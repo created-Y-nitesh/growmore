@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/admin/tickets/1"
+method: PATCH
+headers:
+  Authorization: Bearer {{adminToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "adminNotes": "Assigned to Tier-2 desk"
+    }
+order: 16000

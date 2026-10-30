@@ -1,0 +1,5 @@
+$kind: collection
+name: '11. Administration (RBAC)'
+description: |-
+  Admin-only endpoints. Requires admin role JWT token.
+  Set {{admin_token}} in your environment after logging in as admin.

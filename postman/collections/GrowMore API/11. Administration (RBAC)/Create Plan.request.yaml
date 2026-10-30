@@ -1,0 +1,30 @@
+$kind: http-request
+name: Create Plan
+order: 4000
+url: '{{base_url}}/api/admin/plans'
+method: POST
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{admin_token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Gold Plan",
+      "description": "High yield investment plan",
+      "minAmount": 10000,
+      "maxAmount": 500000,
+      "returnRate": 10,
+      "durationDays": 30,
+      "isActive": true
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));

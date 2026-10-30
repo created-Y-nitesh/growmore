@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{baseUrl}}/api/deposits"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "amount": 1500,
+      "paymentProvider": "UPI Instant Gateway",
+      "providerReference": "UPI-UTR-9988771122",
+      "idempotencyKey": "dep-key-991"
+    }
+order: 1000

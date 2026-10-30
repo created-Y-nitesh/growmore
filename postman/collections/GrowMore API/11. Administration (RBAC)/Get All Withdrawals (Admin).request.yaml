@@ -1,0 +1,15 @@
+$kind: http-request
+name: 'Get All Withdrawals (Admin)'
+order: 7000
+url: '{{base_url}}/api/admin/withdrawals'
+method: GET
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{admin_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));

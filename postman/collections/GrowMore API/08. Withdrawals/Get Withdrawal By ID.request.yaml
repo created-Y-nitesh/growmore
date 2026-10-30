@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get Withdrawal By ID
+order: 3000
+url: '{{base_url}}/api/withdrawals/{{withdrawal_id}}'
+method: GET
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{auth_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));

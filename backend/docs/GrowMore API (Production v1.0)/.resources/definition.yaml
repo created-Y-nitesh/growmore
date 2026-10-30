@@ -1,0 +1,8 @@
+$kind: collection
+description: Comprehensive Postman collection for GrowMore High-Yield Investment Backend. Covers customer registration, mobile SMS OTP verification, session invalidation, dual wallet ledger, investments lifecycle, Razorpay order/verify, persistent support ticketing, and full administrative governance.
+variables:
+  baseUrl: http://localhost:5000
+  authToken: ""
+  adminToken: ""
+  resetToken: ""
+  ticketId: ""

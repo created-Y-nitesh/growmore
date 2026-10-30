@@ -1,0 +1,22 @@
+$kind: http-request
+name: Resend OTP
+order: 5000
+url: '{{base_url}}/api/auth/resend-otp'
+method: POST
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "phone": "9876543210",
+      "purpose": "register"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200 or 429", () => {
+        pm.expect(pm.response.code).to.be.oneOf([200, 429]);
+      });

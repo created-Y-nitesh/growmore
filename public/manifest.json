@@ -1,0 +1,16 @@
+{
+  "short_name": "GrowMore",
+  "name": "GrowMore — Smart Fintech Investment Platform",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#050814",
+  "theme_color": "#0f1738",
+  "display": "standalone",
+  "orientation": "portrait"
+}

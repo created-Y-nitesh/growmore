@@ -1,0 +1,3 @@
+$kind: collection
+name: '09. Payments & Razorpay Gateway'
+description: 'Razorpay payment integration — config check, order creation, payment verification, and webhook.'

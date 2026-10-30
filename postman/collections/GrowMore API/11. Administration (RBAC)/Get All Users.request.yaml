@@ -1,0 +1,19 @@
+$kind: http-request
+name: Get All Users
+order: 1000
+url: '{{base_url}}/api/admin/users'
+method: GET
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{admin_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Users list returned", () => {
+        const json = pm.response.json();
+        pm.expect(json.success).to.be.true;
+      });

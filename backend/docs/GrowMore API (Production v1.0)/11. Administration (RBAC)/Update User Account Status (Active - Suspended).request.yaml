@@ -1,0 +1,15 @@
+$kind: http-request
+name: Update User Account Status (Active / Suspended)
+url: "{{baseUrl}}/api/admin/users/2/status"
+method: PATCH
+headers:
+  Authorization: Bearer {{adminToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "status": "suspended",
+      "reason": "Routine compliance flag"
+    }
+order: 2000

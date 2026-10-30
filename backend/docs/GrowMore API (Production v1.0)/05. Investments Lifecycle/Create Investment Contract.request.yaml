@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/investments"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "planId": 7,
+      "principalAmount": 5000,
+      "idempotencyKey": "inv-batch-001"
+    }
+order: 1000

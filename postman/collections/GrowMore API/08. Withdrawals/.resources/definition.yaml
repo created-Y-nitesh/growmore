@@ -1,0 +1,3 @@
+$kind: collection
+name: '08. Withdrawals'
+description: 'Submit and track withdrawal requests. Minimum withdrawal is ₹500.'

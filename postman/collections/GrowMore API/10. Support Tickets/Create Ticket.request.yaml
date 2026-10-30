@@ -1,0 +1,34 @@
+$kind: http-request
+name: Create Ticket
+order: 1000
+url: '{{base_url}}/api/support/tickets'
+method: POST
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{auth_token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "subject": "Issue with deposit",
+      "message": "My deposit of ₹1000 is pending for more than 24 hours.",
+      "category": "deposit"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 201", () => pm.response.to.have.status(201));
+      pm.test("Ticket created", () => {
+        const json = pm.response.json();
+        pm.expect(json.success).to.be.true;
+      });
+      const json = pm.response.json();
+      if (json.ticket && json.ticket.id) {
+        pm.environment.set("ticket_id", json.ticket.id);
+      }

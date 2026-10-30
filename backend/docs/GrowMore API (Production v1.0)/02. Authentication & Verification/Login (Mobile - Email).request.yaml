@@ -1,0 +1,20 @@
+$kind: http-request
+name: Login (Mobile / Email)
+url: "{{baseUrl}}/api/auth/login"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "identifier": "+919876543210",
+      "password": "GrowMoreSecure#2026"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var jsonData = pm.response.json();
+      if (jsonData.token) { pm.collectionVariables.set('authToken', jsonData.token); }
+    language: text/javascript
+order: 4000

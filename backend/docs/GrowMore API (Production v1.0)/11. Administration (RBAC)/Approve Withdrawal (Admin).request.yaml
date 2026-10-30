@@ -1,0 +1,6 @@
+$kind: http-request
+url: "{{baseUrl}}/api/admin/withdrawals/1/approve"
+method: POST
+headers:
+  Authorization: Bearer {{adminToken}}
+order: 8000

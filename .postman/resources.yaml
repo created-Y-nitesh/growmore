@@ -1,0 +1,15 @@
+# Use this workspace to collaborate
+workspace:
+  id: 8e70d64e-d288-4dbe-82fb-8019a7dfe197
+
+localResources:
+  collections:
+    - ../backend/docs/GrowMore API (Production v1.0)
+  specs:
+    - ../backend/docs/openapi.json
+
+# Each entry here maps a local resource to one or more corresponding objects in Postman Cloud
+
+cloudResources:
+  collections:
+    ../backend/docs/GrowMore API (Production v1.0): c7a88b52-95e2-4df4-a823-growmore-prod-v1

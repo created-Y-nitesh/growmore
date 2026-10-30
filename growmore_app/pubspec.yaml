@@ -1,0 +1,47 @@
+name: growmore_app
+description: "GrowMore — Smart Investment Platform"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.3.2
+  image_picker: ^1.2.4
+  http: ^1.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.3
+  flutter_native_splash: ^2.4.5
+
+flutter_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/app_icon.png"
+  min_sdk_android: 21
+  adaptive_icon_background: "#5B2CF6"
+  adaptive_icon_foreground: "assets/images/app_icon.png"
+
+flutter_native_splash:
+  color: "#0D0B1E"
+  image: assets/images/app_icon.png
+  color_dark: "#0D0B1E"
+  image_dark: assets/images/app_icon.png
+  android_12:
+    color: "#0D0B1E"
+    image: assets/images/app_icon.png
+    icon_background_color: "#0D0B1E"
+  fullscreen: true
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

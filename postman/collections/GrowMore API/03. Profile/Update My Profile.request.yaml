@@ -1,0 +1,29 @@
+$kind: http-request
+name: Update My Profile
+order: 2000
+url: '{{base_url}}/api/profiles/me'
+method: PATCH
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{auth_token}}'
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "fullName": "Updated Name",
+      "phone": "9876543210"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Profile updated", () => {
+        const json = pm.response.json();
+        pm.expect(json.success).to.be.true;
+      });

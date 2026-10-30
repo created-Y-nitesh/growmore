@@ -1,0 +1,14 @@
+$kind: http-request
+name: Liveness Check
+order: 1000
+url: '{{base_url}}/api/health'
+method: GET
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Server is operational", () => {
+        const json = pm.response.json();
+        pm.expect(json.success).to.be.true;
+      });

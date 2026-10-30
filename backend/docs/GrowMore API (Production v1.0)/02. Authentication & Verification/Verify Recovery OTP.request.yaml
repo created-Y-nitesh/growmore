@@ -1,0 +1,20 @@
+$kind: http-request
+url: "{{baseUrl}}/api/auth/verify-otp"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "phone": "+919876543210",
+      "otp": "123456",
+      "purpose": "forgot_password"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var jsonData = pm.response.json();
+      if (jsonData.resetToken) { pm.collectionVariables.set('resetToken', jsonData.resetToken); }
+    language: text/javascript
+order: 6000

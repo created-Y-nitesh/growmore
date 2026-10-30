@@ -1,0 +1,23 @@
+$kind: http-request
+url: "{{baseUrl}}/api/support/ticket"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "category": "Dual Wallet",
+      "subject": "Payout settlement inquiry",
+      "message": "Please verify expected bank arrival time for my withdrawal.",
+      "lockedDeposit": 5000,
+      "withdrawableReturns": 1200
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      var jsonData = pm.response.json();
+      if (jsonData.ticketId) { pm.collectionVariables.set('ticketId', jsonData.ticketId); }
+    language: text/javascript
+order: 1000

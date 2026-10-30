@@ -1,0 +1,13 @@
+$kind: http-request
+url: "{{baseUrl}}/api/payments/create-order"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "amount": 1500
+    }
+order: 2000

@@ -1,0 +1,19 @@
+$kind: http-request
+name: Get Investment By ID
+order: 3000
+url: '{{base_url}}/api/investments/{{investment_id}}'
+method: GET
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{auth_token}}'
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status is 200", () => pm.response.to.have.status(200));
+      pm.test("Investment details returned", () => {
+        const json = pm.response.json();
+        pm.expect(json.success).to.be.true;
+      });

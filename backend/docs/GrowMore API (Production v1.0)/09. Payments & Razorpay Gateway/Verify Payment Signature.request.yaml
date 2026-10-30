@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/payments/verify"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "orderId": "order_test_123",
+      "paymentId": "pay_test_456",
+      "signature": "valid_hmac_sha256_signature"
+    }
+order: 3000

@@ -1,0 +1,951 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "GrowMore High-Yield Investment Platform API",
+    "description": "Production REST API for GrowMore Wealth Management platform. Provides enterprise-grade investment plans, dual wallet ledger, UroPay gateway integration, automated SMS OTP authentication, persistent support ticketing, and administrative controls.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "GrowMore Engineering Desk",
+      "email": "support@growmore.app"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000",
+      "description": "Local Development Server"
+    },
+    {
+      "url": "https://api.growmore.app",
+      "description": "Production Gateway"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Provide JWT bearer token issued by `/api/auth/login` or `/api/auth/verify-otp`."
+      },
+      "CookieAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "growmore_token",
+        "description": "HttpOnly cookie automatically set upon successful login."
+      }
+    },
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "message": { "type": "string" }
+        },
+        "required": ["success"]
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean", "example": false },
+          "message": { "type": "string", "example": "Invalid or revoked authentication token" },
+          "errors": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["success", "message"]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 1 },
+          "fullName": { "type": "string", "example": "Arjun Sharma" },
+          "email": { "type": "string", "format": "email", "example": "arjun@example.com" },
+          "phone": { "type": "string", "example": "+919876543210" },
+          "role": { "type": "string", "enum": ["user", "admin"], "example": "user" },
+          "accountStatus": { "type": "string", "enum": ["active", "suspended", "inactive"], "example": "active" },
+          "isPhoneVerified": { "type": "boolean", "example": true },
+          "referralCode": { "type": "string", "example": "GM-987654" }
+        }
+      },
+      "InvestmentPlan": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 7 },
+          "plan_code": { "type": "string", "example": "BALANCED_GROWTH" },
+          "name": { "type": "string", "example": "Balanced Growth Plan" },
+          "tagline": { "type": "string", "example": "Capital preservation with consistent monthly yields" },
+          "minimum_amount": { "type": "number", "example": 5000 },
+          "duration_days": { "type": "integer", "example": 90 },
+          "return_rate_percentage": { "type": "number", "example": 18.5 },
+          "currency": { "type": "string", "example": "INR" },
+          "is_active": { "type": "boolean", "example": true }
+        }
+      },
+      "SupportTicket": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 101 },
+          "ticket_number": { "type": "string", "example": "TCK-123456-7890" },
+          "user_id": { "type": "integer", "example": 12 },
+          "user_name": { "type": "string", "example": "Arjun Sharma" },
+          "user_mobile": { "type": "string", "example": "+919876543210" },
+          "user_email": { "type": "string", "example": "arjun@example.com" },
+          "category": { "type": "string", "example": "Dual Wallet" },
+          "subject": { "type": "string", "example": "Payout settlement inquiry" },
+          "message": { "type": "string", "example": "When will my withdrawal reach my bank account?" },
+          "status": { "type": "string", "enum": ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"], "example": "OPEN" },
+          "priority": { "type": "string", "enum": ["LOW", "NORMAL", "HIGH", "URGENT"], "example": "NORMAL" },
+          "admin_notes": { "type": "string", "nullable": true },
+          "telegram_dispatched": { "type": "boolean", "example": true },
+          "resolved_at": { "type": "string", "format": "date-time", "nullable": true },
+          "created_at": { "type": "string", "format": "date-time" },
+          "updated_at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root Service Health & Version",
+        "responses": {
+          "200": { "description": "API operational status" }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Database & System Connectivity Status",
+        "responses": {
+          "200": { "description": "System and PostgreSQL healthy" }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register New Customer Account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["fullName", "email", "password"],
+                "properties": {
+                  "fullName": { "type": "string", "example": "Arjun Sharma" },
+                  "email": { "type": "string", "format": "email", "example": "arjun@example.com" },
+                  "password": { "type": "string", "minLength": 6, "example": "SecurePass123!" },
+                  "phone": { "type": "string", "example": "+919876543210" },
+                  "dob": { "type": "string", "format": "date", "example": "1994-05-15" },
+                  "referralCode": { "type": "string", "example": "GM-PROMO" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Registration successful, session token or OTP issued" },
+          "400": { "description": "Validation error" },
+          "409": { "description": "Duplicate email or phone already registered" }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "Authenticate User with Mobile/Email & Password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["password"],
+                "properties": {
+                  "identifier": { "type": "string", "example": "+919876543210" },
+                  "email": { "type": "string", "example": "arjun@example.com" },
+                  "phone": { "type": "string", "example": "+919876543210" },
+                  "password": { "type": "string", "example": "SecurePass123!" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Authenticated successfully, returns JWT and sets cookie" },
+          "401": { "description": "Invalid credentials" },
+          "403": { "description": "Account suspended or unverified" }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "summary": "Log Out & Clear Session Cookies",
+        "responses": {
+          "200": { "description": "Session terminated" }
+        }
+      }
+    },
+    "/api/auth/verify-otp": {
+      "post": {
+        "summary": "Verify 6-Digit SMS OTP",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["phone", "otp", "purpose"],
+                "properties": {
+                  "phone": { "type": "string", "example": "+919876543210" },
+                  "otp": { "type": "string", "example": "123456" },
+                  "purpose": { "type": "string", "enum": ["register", "forgot_password"], "example": "register" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OTP verified successfully" },
+          "400": { "description": "Invalid or expired OTP" }
+        }
+      }
+    },
+    "/api/auth/resend-otp": {
+      "post": {
+        "summary": "Resend SMS Verification OTP",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["phone"],
+                "properties": {
+                  "phone": { "type": "string", "example": "+919876543210" },
+                  "purpose": { "type": "string", "example": "register" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "New OTP dispatched" },
+          "429": { "description": "Rate limit exceeded" }
+        }
+      }
+    },
+    "/api/auth/forgot-password": {
+      "post": {
+        "summary": "Initiate Password Reset via SMS OTP",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["phone"],
+                "properties": {
+                  "phone": { "type": "string", "example": "+919876543210" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Recovery OTP dispatched" }
+        }
+      }
+    },
+    "/api/auth/reset-password": {
+      "post": {
+        "summary": "Submit New Password with Verified Reset Token",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["newPassword"],
+                "properties": {
+                  "resetToken": { "type": "string" },
+                  "newPassword": { "type": "string", "minLength": 6, "example": "BrandNewPass@2027" },
+                  "phone": { "type": "string" },
+                  "otp": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Password reset successfully and token_version bumped" }
+        }
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "summary": "Get Authenticated User Profile",
+        "security": [{ "BearerAuth": [] }, { "CookieAuth": [] }],
+        "responses": {
+          "200": { "description": "Profile data retrieved" },
+          "401": { "description": "Unauthorized / Session revoked" },
+          "403": { "description": "Account suspended or inactive" }
+        }
+      }
+    },
+    "/api/profiles/me": {
+      "get": {
+        "summary": "Retrieve Customer Identity Profile",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Profile data" }
+        }
+      },
+      "patch": {
+        "summary": "Update Permitted Profile Fields (RLS Protected)",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "full_name": { "type": "string", "example": "Arjun Sharma Updated" },
+                  "phone": { "type": "string", "example": "+919876543210" },
+                  "dob": { "type": "string", "format": "date", "example": "1994-05-15" },
+                  "avatar_url": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Profile updated" },
+          "403": { "description": "Tampering with role or account_status rejected" }
+        }
+      }
+    },
+    "/api/plans": {
+      "get": {
+        "summary": "List Active Investment Plans",
+        "responses": {
+          "200": { "description": "Array of active investment plans" }
+        }
+      }
+    },
+    "/api/plans/{id}": {
+      "get": {
+        "summary": "Get Single Investment Plan Details",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Plan details" },
+          "404": { "description": "Plan not found" }
+        }
+      }
+    },
+    "/api/investments": {
+      "post": {
+        "summary": "Allocate Capital into an Investment Plan",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["planId", "principalAmount"],
+                "properties": {
+                  "planId": { "type": "integer", "example": 7 },
+                  "principalAmount": { "type": "number", "example": 5000 },
+                  "idempotencyKey": { "type": "string", "example": "inv-unique-key-123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Investment activated and wallet debited" },
+          "400": { "description": "Schema validation failed or insufficient balance" }
+        }
+      }
+    },
+    "/api/investments/my": {
+      "get": {
+        "summary": "List Authenticated User's Investments",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Active and completed contracts" }
+        }
+      }
+    },
+    "/api/investments/{id}": {
+      "get": {
+        "summary": "Get Single Investment Contract Details",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Investment details and return calculation" }
+        }
+      }
+    },
+    "/api/wallet": {
+      "get": {
+        "summary": "Authoritative Real-Time Wallet Summary",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Returns available balance, locked capital, portfolio, pending sums" }
+        }
+      }
+    },
+    "/api/wallet/ledger": {
+      "get": {
+        "summary": "Paginated Immutable Financial Ledger",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 20 } }
+        ],
+        "responses": {
+          "200": { "description": "Raw double-entry ledger rows" }
+        }
+      }
+    },
+    "/api/transactions": {
+      "get": {
+        "summary": "Customer-Friendly Transaction Feed",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Formatted transactions feed" }
+        }
+      }
+    },
+    "/api/deposits": {
+      "post": {
+        "summary": "Submit Pending Deposit Request",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["amount"],
+                "properties": {
+                  "amount": { "type": "number", "minimum": 100, "maximum": 5000000, "example": 2500 },
+                  "paymentProvider": { "type": "string", "example": "UPI Instant Gateway" },
+                  "providerReference": { "type": "string", "example": "UPI-UTR-987654321" },
+                  "idempotencyKey": { "type": "string", "example": "dep-idemp-123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Deposit request initiated with PENDING status" },
+          "400": { "description": "Malformed request or amount out of bounds" }
+        }
+      }
+    },
+    "/api/deposits/my": {
+      "get": {
+        "summary": "List Authenticated User's Deposit Requests",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Deposit records array" }
+        }
+      }
+    },
+    "/api/withdrawals": {
+      "post": {
+        "summary": "Submit Withdrawal Request and Reserve Funds",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["amount"],
+                "properties": {
+                  "amount": { "type": "number", "minimum": 500, "maximum": 1000000, "example": 1000 },
+                  "payoutMethod": { "type": "string", "example": "IMPS Bank Transfer" },
+                  "payoutDetails": {
+                    "type": "object",
+                    "properties": {
+                      "accountNumber": { "type": "string", "example": "91234567890" },
+                      "ifsc": { "type": "string", "example": "HDFC0001234" }
+                    }
+                  },
+                  "idempotencyKey": { "type": "string", "example": "wdr-idemp-456" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Withdrawal created and funds placed in WITHDRAWAL_HOLD" },
+          "400": { "description": "Validation error or insufficient funds" }
+        }
+      }
+    },
+    "/api/withdrawals/my": {
+      "get": {
+        "summary": "List Authenticated User's Withdrawal History",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Array of withdrawals and payout statuses" }
+        }
+      }
+    },
+    "/api/payments/config": {
+      "get": {
+        "summary": "Public Payment Gateway Configuration & Key ID",
+        "responses": {
+          "200": { "description": "Gateway status, test mode flag, and public keyId" }
+        }
+      }
+    },
+    "/api/payments/create-order": {
+      "post": {
+        "summary": "Create Verified UroPay Order",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["amount"],
+                "properties": {
+                  "amount": { "type": "number", "minimum": 100, "example": 1500 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Order created with order_id and minor units (paise)" }
+        }
+      }
+    },
+    "/api/payments/verify": {
+      "post": {
+        "summary": "Verify Gateway HMAC Signature & Credit Wallet",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["orderId", "paymentId", "signature"],
+                "properties": {
+                  "orderId": { "type": "string", "example": "order_RZP123456" },
+                  "paymentId": { "type": "string", "example": "pay_RZP789012" },
+                  "signature": { "type": "string", "example": "hmac_sha256_hash_here" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Signature verified, deposit marked SUCCESS, wallet credited" },
+          "400": { "description": "Forged or invalid signature rejected" }
+        }
+      }
+    },
+    "/api/payments/webhook": {
+      "post": {
+        "summary": "Payment Provider Webhook Callback",
+        "responses": {
+          "200": { "description": "Webhook signature validated and handled idempotently" }
+        }
+      }
+    },
+    "/api/support/ticket": {
+      "post": {
+        "summary": "Submit Customer Support Ticket",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["message"],
+                "properties": {
+                  "userName": { "type": "string", "example": "Arjun Sharma" },
+                  "userMobile": { "type": "string", "example": "+919876543210" },
+                  "userEmail": { "type": "string", "example": "arjun@example.com" },
+                  "category": { "type": "string", "example": "Dual Wallet" },
+                  "subject": { "type": "string", "example": "Payout settlement inquiry" },
+                  "message": { "type": "string", "example": "When will my withdrawal reach my bank account?" },
+                  "lockedDeposit": { "type": "number", "example": 5000 },
+                  "withdrawableReturns": { "type": "number", "example": 1200 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Ticket stored persistently in PostgreSQL and dispatched to Telegram" },
+          "400": { "description": "Message cannot be empty" }
+        }
+      }
+    },
+    "/api/support/my": {
+      "get": {
+        "summary": "List Customer's Own Tickets",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Tickets array with status and admin notes" }
+        }
+      }
+    },
+    "/api/support/{id}": {
+      "get": {
+        "summary": "View Specific Support Ticket",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Ticket details" },
+          "403": { "description": "Forbidden: Not ticket owner" }
+        }
+      }
+    },
+    "/api/admin/users": {
+      "get": {
+        "summary": "List Users with Single-Query Aggregate Balances (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 20 } }
+        ],
+        "responses": {
+          "200": { "description": "Users array with real-time portfolio and available balance" }
+        }
+      }
+    },
+    "/api/admin/users/{id}/status": {
+      "patch": {
+        "summary": "Update User Status (active / suspended)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["status"],
+                "properties": {
+                  "status": { "type": "string", "enum": ["active", "suspended"] },
+                  "reason": { "type": "string", "example": "Compliance audit review" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "User status updated and audit entry recorded" }
+        }
+      }
+    },
+    "/api/admin/plans": {
+      "get": {
+        "summary": "List All Plans Including Inactive (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "All plans" }
+        }
+      },
+      "post": {
+        "summary": "Create New Investment Plan (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["planCode", "name", "minimumAmount", "durationDays", "returnRatePercentage"],
+                "properties": {
+                  "planCode": { "type": "string", "example": "TECH_VENTURES" },
+                  "name": { "type": "string", "example": "Tech Ventures Yield Plan" },
+                  "tagline": { "type": "string", "example": "Venture-backed debt allocation" },
+                  "minimumAmount": { "type": "number", "example": 25000 },
+                  "durationDays": { "type": "integer", "example": 180 },
+                  "returnRatePercentage": { "type": "number", "example": 24.0 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Plan created" }
+        }
+      }
+    },
+    "/api/admin/plans/{id}": {
+      "patch": {
+        "summary": "Update Plan Terms or Activation (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Plan terms updated" }
+        }
+      }
+    },
+    "/api/admin/investments": {
+      "get": {
+        "summary": "List All User Investment Contracts (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Contracts array" }
+        }
+      }
+    },
+    "/api/admin/deposits": {
+      "get": {
+        "summary": "List All Deposit Requests (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Deposit requests across platform" }
+        }
+      }
+    },
+    "/api/admin/deposits/{id}/verify-manual": {
+      "post": {
+        "summary": "Manually Verify Deposit & Credit Wallet (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "bankTxRef": { "type": "string", "example": "BANK-REF-998877" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Deposit marked SUCCESS and atomic ledger entry created" }
+        }
+      }
+    },
+    "/api/admin/withdrawals": {
+      "get": {
+        "summary": "List All Withdrawal Requests (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Pending, approved, and paid withdrawals" }
+        }
+      }
+    },
+    "/api/admin/withdrawals/{id}/approve": {
+      "post": {
+        "summary": "Approve Withdrawal Request (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Status moved to APPROVED" }
+        }
+      }
+    },
+    "/api/admin/withdrawals/{id}/mark-paid": {
+      "post": {
+        "summary": "Mark Withdrawal Paid After Bank Wire (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payoutReference": { "type": "string", "example": "NEFT-UTR-11223344" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Withdrawal marked PAID and hold cleared" }
+        }
+      }
+    },
+    "/api/admin/withdrawals/{id}/reject": {
+      "post": {
+        "summary": "Reject Withdrawal & Release Reserved Funds (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": { "type": "string", "example": "Invalid beneficiary IFSC code" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Withdrawal rejected and funds restored to available balance" }
+        }
+      }
+    },
+    "/api/admin/ledger": {
+      "get": {
+        "summary": "Platform-Wide Immutable Financial Ledger (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Double-entry ledger records" }
+        }
+      }
+    },
+    "/api/admin/returns": {
+      "get": {
+        "summary": "Inspect Calculated Return Batches (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Return entries" }
+        }
+      }
+    },
+    "/api/admin/returns/run-batch": {
+      "post": {
+        "summary": "Execute Daily Return Batch Calculation (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "periodKey": { "type": "string", "example": "2026-10-29" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Batch executed idempotently" }
+        }
+      }
+    },
+    "/api/admin/audit-logs": {
+      "get": {
+        "summary": "Paginated Immutable Administrative Audit Trail (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Audit trail entries" }
+        }
+      }
+    },
+    "/api/admin/reconciliation": {
+      "get": {
+        "summary": "Run Financial Invariant Reconciliation Audit (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Mathematical invariant health report (no negative balances, unique refs)" }
+        }
+      }
+    },
+    "/api/admin/tickets": {
+      "get": {
+        "summary": "List Customer Support Tickets (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "status", "in": "query", "schema": { "type": "string" } },
+          { "name": "priority", "in": "query", "schema": { "type": "string" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer", "default": 20 } }
+        ],
+        "responses": {
+          "200": { "description": "Paginated support tickets" }
+        }
+      }
+    },
+    "/api/admin/tickets/{id}": {
+      "get": {
+        "summary": "Inspect Single Support Ticket (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Support ticket record" }
+        }
+      },
+      "patch": {
+        "summary": "Update Ticket Status, Priority & Admin Notes (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": { "type": "string", "enum": ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"] },
+                  "priority": { "type": "string", "enum": ["LOW", "NORMAL", "HIGH", "URGENT"] },
+                  "adminNotes": { "type": "string", "example": "Escalated to banking operations" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Ticket updated" }
+        }
+      }
+    },
+    "/api/admin/tickets/{id}/close": {
+      "post": {
+        "summary": "Close Support Ticket with Resolution Notes (Admin)",
+        "security": [{ "BearerAuth": [] }],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "adminNotes": { "type": "string", "example": "Resolution confirmed with investor" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Ticket transitioned to CLOSED and resolved_at set" }
+        }
+      }
+    }
+  }
+}
